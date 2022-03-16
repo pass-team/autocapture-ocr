@@ -1,0 +1,17 @@
+{
+  "name": "autocapture-ocr",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "screenshot-desktop": "1.12.7",
+    "sharp": "0.30.3",
+    "tesseract.js": "2.1.5"
+  },
+  "devDependencies": {
+    "eslint": "6.8.0",
+    "eslint-config-airbnb-base": "14.0.0",
+    "eslint-plugin-import": "2.20.0"
+  }
+}

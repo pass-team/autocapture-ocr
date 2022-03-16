@@ -1,0 +1,8 @@
+SN VRTEE o1 078
+MY T RV = 82.0 MB
+v DOM Nodes 155
+V" JS event listeners pAle
+v Documents :
+v" Document Frames 3
+V' Layouts / sec 0
+“ Style recalcs / sec .
