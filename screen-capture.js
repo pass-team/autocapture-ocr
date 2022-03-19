@@ -8,7 +8,7 @@ setInterval(async () => {
     const timestamp = new Date().getTime();
     const pathDashboardSnapshots = `./snapshots/dashboard-${timestamp}.jpg`;
     const pathTaskManagerSnapshots = `./snapshots/task-manager-${timestamp}.jpg`;
-    const callback = (error) => (error ? console.log(error) : console.log('Captured success'));
+    const callback = (error) => (error ? console.log(error) : console.log('Captured success!'));
 
     await sharp(image)
       .extract({
