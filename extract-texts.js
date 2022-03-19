@@ -5,7 +5,7 @@ import { createWorker } from 'tesseract.js';
 const snapshotsPath = './snapshots';
 
 const noteDataToFile = async (target, data) => {
-  const targetFile = `./${target}.txt`;
+  const targetFile = `./benchmarks/${target}.txt`;
   await appendFile(targetFile, data, { flag: 'a', encoding: 'utf-8' });
 };
 

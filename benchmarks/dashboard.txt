@@ -1,0 +1,26 @@
+JS heap size 256 MB
+DOM Nodes 469
+JS heap size 330 MB
+DOM Nodes S
+JS heap size 305 MB
+DOM Nodes Iy
+JS heap size 257 MB
+DOM Nodes 1,926
+JS heap size 253 MB
+DOM Nodes T4
+JS heap size 255 MB
+DOM Nodes 967
+JS heap size 263 MB
+DOM Nodes P!
+JS heap size 219 MB
+DOM Nodes 1,005
+JS heap size 229 MB
+DOM Nodes 945
+JS heap size 253 MB
+DOM Nodes 1,218
+JS heap size 265 MB
+DOM Nodes 1,661
+JS heap size 233 MB
+DOM Nodes o[k
+JS heap size 274 MB
+DOM Nodes 1,789

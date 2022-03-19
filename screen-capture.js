@@ -14,7 +14,7 @@ setInterval(async () => {
         left: 675, top: 314, width: 265, height: 77,
       })
       .grayscale()
-      .resize(800, undefined)
+      .resize(900, undefined)
       .toFile(pathDashboardSnapshots, errorCallback);
 
     await sharp(image)
@@ -22,7 +22,7 @@ setInterval(async () => {
         left: 1030, top: 78, width: 776, height: 169,
       })
       .grayscale()
-      .resize(2500, undefined)
+      .resize(3000, undefined)
       .toFile(pathTaskManagerSnapshots, errorCallback);
   } catch (error) {
     console.log('Failed to capture screenshots');
