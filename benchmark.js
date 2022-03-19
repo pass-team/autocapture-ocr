@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import fs from 'fs';
 
 const dashboardData = fs.readFileSync('./benchmarks/dashboard.txt').toString().split('\n');
