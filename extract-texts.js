@@ -31,7 +31,7 @@ const extractText = async (file) => {
       // Remove generated traineddata because it's broken and affect subsequent runs
       await unlink('./eng.traineddata');
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
     return text;
   } catch (error) {
