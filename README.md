@@ -15,7 +15,8 @@ Built with:
   accuracy
 
 **Quick Demo**
-https://user-images.githubusercontent.com/40330059/159343981-f63d0c2d-057f-4005-8357-f798e5b6c539.mp4
+
+[!](https://user-images.githubusercontent.com/40330059/159343981-f63d0c2d-057f-4005-8357-f798e5b6c539.mp4)
 
 ## I. Prerequisites
 
