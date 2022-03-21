@@ -6,6 +6,11 @@ This helps:
 2. Read texts from screenshots with OCR
 3. Extract benchmark values from OCR-ed text
 
+Built with: 
+* [Tesseract.js](https://tesseract.projectnaptha.com/): OCR module using AI
+* [sharp](https://sharp.pixelplumbing.com/): Used for image processing to help Tesseract read image with higher 
+  accuracy
+
 ## I. Prerequisites
 * Node 14+
 * Python 3.8
@@ -72,6 +77,7 @@ node benchmark.js
 | Params      | Description |Value | 
 | :----------- | :----------- | :----------- |
 | namespace * |    Name of the capture do you want to analyze     | Capture name: Ex: capture_1       |
+| batch-size * |    The tool process images in batch. Higher batch will slightly reduce processing time (about 5 - 10%) but more chance of unexpected error while running      | Capture name: Ex: capture_1       |
 
 #### Example:
 ```javascript
@@ -105,3 +111,10 @@ await Main.MainImpl.sendOverProtocol('Emulation.setCPUThrottlingRate', { rate: 2
 4. Run command [Command II](#read-texts-from-snapshots-with-ocr) with `--namespace` same as step 3
 5. Run command [Command III](#extract-benchmark-values-from-ocr-ed-text) with `--namespace` same as step 3
 6. The benchmark values will be logged to Terminal
+
+## VI. Common Errors
+### 1. createWorker Runtime error 
+![](./docs/images/image-5.png)
+
+#### Fix
+Find the file with name: `eng.traineddata` in the root folder and delete it, then run the command again  

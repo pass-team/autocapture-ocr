@@ -42,7 +42,8 @@ taskManagerData.forEach((input) => {
   }
 }, {});
 
+console.log(`\nBenchmark Result for: ${namespace}\n`);
 console.log(`DOM Nodes: ${domNodes[0]} upto ${Math.max(...domNodes)}`);
 console.log(`JS Heap Size: ${jsHeapSize[0]} MB upto ${Math.max(...jsHeapSize)} MB`);
 console.log(`Dashboard Memory: ${dashboard[0]} MB upto ${Math.max(...dashboard)} MB`);
-console.log(`LinkedIn Profile Memory: ${linkedInProfileMem[0]} MB upto ${Math.max(...linkedInProfileMem)} MB`);
+console.log(`LinkedIn Profile Memory: ${linkedInProfileMem[0]} MB upto ${Math.max(...linkedInProfileMem)} MB\n`);

@@ -1,4 +1,5 @@
 /* eslint-disable no-console,no-await-in-loop */
+import path from 'path';
 import humps from 'humps';
 import { readdir, appendFile, unlink } from 'fs/promises';
 import { createWorker } from 'tesseract.js';
@@ -6,7 +7,7 @@ import minimist from 'minimist';
 
 // Handle cli params
 const args = minimist(process.argv.slice(2));
-const { namespace } = humps.camelizeKeys(args);
+const { namespace, batchSize } = humps.camelizeKeys(args);
 const snapshotsPath = `./snapshots/${namespace}`;
 
 
@@ -17,6 +18,7 @@ const noteDataToFile = async (target, data) => {
 
 const extractText = async (file) => {
   const worker = createWorker({
+    langPath: path.join(process.cwd(), 'tessdata'),
     logger: (m) => console.log(m),
   });
   try {
@@ -25,6 +27,12 @@ const extractText = async (file) => {
     await worker.initialize('eng');
     const { data: { text } } = await worker.recognize(`${snapshotsPath}/${file}`, 'eng');
     await worker.terminate();
+    try {
+      // Remove generated traineddata because it's broken and affect subsequent runs
+      await unlink('./eng.traineddata');
+    } catch (error) {
+      console.log(error);
+    }
     return text;
   } catch (error) {
     console.log(error);
@@ -43,11 +51,11 @@ const processFile = async (file) => {
 };
 
 /*
- Handle images in batch, 4 should be fine,
+ Handle images in batch, 3 should be fine,
  Increase this number may cause the process to stuck at some point when running for too long
  Weak computer may need lower value
  */
-const batch = 4;
+const batch = batchSize || 3;
 
 (async () => {
   const files = await readdir(snapshotsPath);
@@ -61,12 +69,6 @@ const batch = 4;
     await Promise.all(filesSlice.map(((file) => processFile(file))));
     currentIndex += batch;
 
-    try {
-      // Remove generated traineddata because it's broken and affect subsequent runs
-      await unlink('./eng.traineddata');
-    } catch (error) {
-      console.log(error);
-    }
     // await noteDataToFile('batches', `\nHandle batch done:\n${JSON.stringify(filesSlice)}`);
   }
   const t1 = performance.now();
