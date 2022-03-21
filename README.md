@@ -51,19 +51,19 @@ yarn install
 node screen-capture.js
 ```
 
-#### Parameters
+#### CLI Parameters
 
 | Params          | Description                        | Value                                                          |
 | :-------------- | :--------------------------------- | :------------------------------------------------------------- |
 | dashboard \*    | Coordinates of Dashboard region    | [left]-[top]-[width]-[height]                                  |
 | task-manager \* | Coordinates of Task Manager region | [left]-[top]-[width]-[height]                                  |
-| namespace \*    | Snapshots Output folder            | Differentiate different captures                               |
-| interval        | Snapshots Output folder            | Waiting time between captures, in miliseconds. Default: `1000` |
+| namespace \*    | Name of the capture            | Differentiate different captures                               |
+| interval        | Interval between captures in milliseconds            | A number. Default: `1000` |
 
 #### Example:
 
 ```javascript
-node screen-capture.js
+node screen-capture.js --dashboard 627-592-309-88 --task-manager 1032-76-859-283 --namespace snapshots_1
 ```
 
 ### 2. Read texts from snapshots with OCR
@@ -71,19 +71,20 @@ node screen-capture.js
 #### Command
 
 ```javascript
-node extract-texts.js --namespace [name of your capture]
+node extract-texts.js
 ```
 
-#### Parameters
+#### CLI Parameters
 
 | Params       | Description                                | Value                       |
 | :----------- | :----------------------------------------- | :-------------------------- |
 | namespace \* | Name of the capture do you want to analyze | Capture name: Ex: capture_1 |
+| batch-size \* | The tool process images in batches. Higher batch size will slightly reduce processing time (about 5 - 10%) but more chance of unexpected error while running | A number. Default: `3` |
 
 #### Example:
 
 ```javascript
-node extract-texts.js
+node extract-texts.js  --batch-size 4 --namespace snapshots_1
 ```
 
 ### 3. Extract benchmark values from OCR-ed text
@@ -94,17 +95,16 @@ node extract-texts.js
 node benchmark.js
 ```
 
-#### Parameters
+#### CLI Parameters
 
 | Params        | Description                                                                                                                                           | Value                       |
 | :------------ | :---------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------- |
 | namespace \*  | Name of the capture do you want to analyze                                                                                                            | Capture name: Ex: capture_1 |
-| batch-size \* | The tool process images in batch. Higher batch will slightly reduce processing time (about 5 - 10%) but more chance of unexpected error while running | Capture name: Ex: capture_1 |
 
 #### Example:
 
 ```javascript
-node extract-texts.js --namespace snapshots_1
+node benchmark.js --namespace snapshots_1
 ```
 
 ## IV. Preparation for benchmarking
