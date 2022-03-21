@@ -141,8 +141,7 @@ await Main.MainImpl.sendOverProtocol('Emulation.setCPUThrottlingRate', { rate: 2
 ## VI. Common Errors
 
 ### 1. createWorker Runtime error
-
-![](./docs/images/image-5.png)
+![image](https://user-images.githubusercontent.com/40330059/159348105-5fd2cd1e-34da-41ed-94a0-5c258fa856f6.png)
 
 #### Fix
 
