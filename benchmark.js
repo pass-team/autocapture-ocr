@@ -1,8 +1,14 @@
 /* eslint-disable no-console */
 import fs from 'fs';
+import minimist from 'minimist';
+import humps from 'humps';
 
-const dashboardData = fs.readFileSync('./benchmarks/dashboard.txt').toString().split('\n');
-const taskManagerData = fs.readFileSync('./benchmarks/task-manager.txt').toString().split('\n');
+// Handle cli params
+const args = minimist(process.argv.slice(2));
+const { namespace } = humps.camelizeKeys(args);
+
+const dashboardData = fs.readFileSync(`./benchmarks/${namespace}.dashboard.txt`).toString().split('\n');
+const taskManagerData = fs.readFileSync(`./benchmarks/${namespace}.task-manager.txt`).toString().split('\n');
 
 const domNodes = [];
 const jsHeapSize = [];

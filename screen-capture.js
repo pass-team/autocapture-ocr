@@ -1,31 +1,64 @@
 /* eslint-disable no-console */
+import fs from 'fs';
 import screenshot from 'screenshot-desktop';
 import sharp from 'sharp';
+import minimist from 'minimist';
+import humps from 'humps';
 
+
+// Handle cli params
+const args = minimist(process.argv.slice(2));
+const {
+  dashboard, taskManager, interval, namespace,
+} = humps.camelizeKeys(args);
+
+const dashboardCoordinates = dashboard.split('-').map((coordinate) => parseInt(coordinate, 10));
+const taskManagerCoordinates = taskManager.split('-').map((coordinate) => parseInt(coordinate, 10));
+
+
+// Create folder to store snapshots
+const snapshotsPath = `./snapshots/${namespace}`;
+if (!fs.existsSync(snapshotsPath)) {
+  fs.mkdirSync(snapshotsPath);
+}
+
+
+// Capture screen with interval
 setInterval(async () => {
   try {
     const image = await screenshot();
     const timestamp = new Date().getTime();
-    const pathDashboardSnapshots = `./snapshots/dashboard-${timestamp}.jpg`;
-    const pathTaskManagerSnapshots = `./snapshots/task-manager-${timestamp}.jpg`;
+
+    const pathDashboardSnapshots = `${snapshotsPath}/dashboard-${timestamp}.jpg`;
+    const pathTaskManagerSnapshots = `${snapshotsPath}/task-manager-${timestamp}.jpg`;
+
     const callback = (error) => (error ? console.log(error) : console.log('Captured success!'));
 
-    await sharp(image)
+    // Capture Dashboard Performance Monitor
+    sharp(image)
       .extract({
-        left: 675, top: 314, width: 265, height: 77,
+        left: dashboardCoordinates[0],
+        top: dashboardCoordinates[1],
+        width: dashboardCoordinates[2],
+        height: dashboardCoordinates[3],
       })
       .grayscale()
-      .resize(900, undefined)
+      .resize(taskManagerCoordinates[2] * 2)
       .toFile(pathDashboardSnapshots, callback);
 
-    await sharp(image)
+    // Capture Task Manager
+    sharp(image)
       .extract({
-        left: 1030, top: 78, width: 776, height: 169,
+        left: taskManagerCoordinates[0],
+        top: taskManagerCoordinates[1],
+        width: taskManagerCoordinates[2],
+        height: taskManagerCoordinates[3],
       })
       .grayscale()
-      .resize(3000, undefined)
+      .resize(taskManagerCoordinates[2] * 2)
       .toFile(pathTaskManagerSnapshots, callback);
   } catch (error) {
+    console.log(error);
     console.log('Failed to capture screenshots');
   }
-}, 1500);
+}, interval ? parseInt(interval, 10) : 1000);

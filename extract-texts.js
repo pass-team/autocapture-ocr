@@ -1,11 +1,17 @@
 /* eslint-disable no-console,no-await-in-loop */
+import humps from 'humps';
 import { readdir, appendFile, unlink } from 'fs/promises';
 import { createWorker } from 'tesseract.js';
+import minimist from 'minimist';
 
-const snapshotsPath = './snapshots';
+// Handle cli params
+const args = minimist(process.argv.slice(2));
+const { namespace } = humps.camelizeKeys(args);
+const snapshotsPath = `./snapshots/${namespace}`;
+
 
 const noteDataToFile = async (target, data) => {
-  const targetFile = `./benchmarks/${target}.txt`;
+  const targetFile = `./benchmarks/${namespace}.${target}.txt`;
   await appendFile(targetFile, data, { flag: 'a', encoding: 'utf-8' });
 };
 
@@ -36,7 +42,12 @@ const processFile = async (file) => {
   }
 };
 
-const batch = 3;
+/*
+ Handle images in batch, 4 should be fine,
+ Increase this number may cause the process to stuck at some point when running for too long
+ Weak computer may need lower value
+ */
+const batch = 4;
 
 (async () => {
   const files = await readdir(snapshotsPath);
@@ -56,8 +67,8 @@ const batch = 3;
     } catch (error) {
       console.log(error);
     }
-    await noteDataToFile('batches', `\nHandle batch done:\n${JSON.stringify(filesSlice)}`);
+    // await noteDataToFile('batches', `\nHandle batch done:\n${JSON.stringify(filesSlice)}`);
   }
   const t1 = performance.now();
-  console.log(`Call to doSomething took ${(t1 - t0) / 1000} seconds.`);
+  console.log(`Extracting texts took ${(t1 - t0) / 1000} seconds.`);
 })();
